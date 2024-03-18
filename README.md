@@ -37,8 +37,8 @@ This repository currently includes only one Streamlit application: An interactiv
    ```bash
    streamlit run app.py
 
-Contributing
+Contributing:
 If you'd like to contribute to this repository, feel free to open an issue or submit a pull request. Contributions, feedback, and suggestions are always welcome!
 
-License
+License:
 This project is licensed under the MIT License.

@@ -1,0 +1,50 @@
+import streamlit as st
+from snowflake.snowpark.context import get_active_session
+import pandas as pd
+
+# Set page title and favicon
+st.set_page_config(page_title="British Airways Insights")
+
+# Write directly to the app
+st.title("British Airways Insights")
+st.write(
+    "Presenting the data insights on: *British Airways*"
+)
+
+# Get the current credentials
+session = get_active_session()
+
+# Dropdown menu for selecting analysis type
+analysis_type = st.selectbox(
+    "Select Analysis Type",
+    ("Passengers per Trip Type", "Passengers per Booking Origin")
+)
+
+# Execute SQL query based on the selected analysis type
+if analysis_type == "Passengers per Trip Type":
+    sql_query = """
+        SELECT TRIP_TYPE, COUNT(NUM_PASSENGERS) AS Passengers
+        FROM brit_airways_data
+        GROUP BY TRIP_TYPE
+        ORDER BY Passengers DESC
+    """
+elif analysis_type == "Passengers per Booking Origin":
+    sql_query = """
+        SELECT BOOKING_ORIGIN, COUNT(NUM_PASSENGERS) AS Passengers
+        FROM brit_airways_data
+        GROUP BY BOOKING_ORIGIN
+        ORDER BY Passengers DESC
+    """
+else:
+    st.error("Invalid analysis type selected!")
+
+# Execute SQL query and fetch data
+if analysis_type:
+    data = session.sql(sql_query).collect()
+
+    # Display the fetched data in a DataFrame format
+    if data:
+        st.header(analysis_type)
+        st.dataframe(data)
+    else:
+        st.write("No results found.")

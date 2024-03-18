@@ -14,7 +14,7 @@ This repository currently includes only one Streamlit application: An interactiv
    - Features:
      - Analysis over Trip Type
      - Analysis over Flight Origin
-     - ...
+       
    - Screenshots:
      ![Screenshot 1](C:\Users\LENOVO\Downloads\11.png)
      ![Screenshot 2]("C:\Users\LENOVO\Downloads\12.png")
